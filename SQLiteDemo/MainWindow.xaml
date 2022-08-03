@@ -1,0 +1,29 @@
+﻿<Window x:Class="SQLiteDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQLiteDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="330" Width="610" ResizeMode="NoResize">
+    <Grid>
+        <Button x:Name="addPersonBtn" Content="Add Person" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" Height="53" Width="140" Click="addPersonBtn_Click"/>
+        <Button x:Name="refreshListBtn" Content="Refresh List" HorizontalAlignment="Left" Margin="10,225,0,0" VerticalAlignment="Top" Height="53" Width="140" Click="refreshListBtn_Click"/>
+        <TextBox x:Name="firstNameText" HorizontalAlignment="Left" TextAlignment="Left" Height="33" Margin="10,43,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="183" VerticalContentAlignment="Center" FontSize="16"/>
+        <TextBox x:Name="lastNameText" HorizontalAlignment="Left" TextAlignment="Left" Height="33" Margin="10,114,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="183" VerticalContentAlignment="Center" FontSize="16"/>
+        <Label Content="First Name" HorizontalAlignment="Left" Height="33" Margin="10,5,0,0" VerticalAlignment="Top" Width="106" FontSize="18"/>
+        <Label Content="Last Name" HorizontalAlignment="Left" Height="33" Margin="10,81,0,0" VerticalAlignment="Top" Width="106" FontSize="18"/>
+        <ListBox x:Name="listPeopleListBox" ItemsSource="{Binding people}" HorizontalAlignment="Left" Height="273" Margin="208,5,0,0" VerticalAlignment="Top" Width="373">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Firstname}"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="{Binding Path=Lastname}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+    </Grid>
+</Window>
