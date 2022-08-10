@@ -5,25 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SQLiteDemo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="330" Width="610" ResizeMode="NoResize">
+        Title="MainWindow" Height="410" Width="610" MinHeight="410" MinWidth="610" FontSize="16">
     <Grid>
-        <Button x:Name="addPersonBtn" Content="Add Person" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" Height="53" Width="140" Click="addPersonBtn_Click"/>
-        <Button x:Name="refreshListBtn" Content="Refresh List" HorizontalAlignment="Left" Margin="10,225,0,0" VerticalAlignment="Top" Height="53" Width="140" Click="refreshListBtn_Click"/>
-        <TextBox x:Name="firstNameText" HorizontalAlignment="Left" TextAlignment="Left" Height="33" Margin="10,43,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="183" VerticalContentAlignment="Center" FontSize="16"/>
-        <TextBox x:Name="lastNameText" HorizontalAlignment="Left" TextAlignment="Left" Height="33" Margin="10,114,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="183" VerticalContentAlignment="Center" FontSize="16"/>
-        <Label Content="First Name" HorizontalAlignment="Left" Height="33" Margin="10,5,0,0" VerticalAlignment="Top" Width="106" FontSize="18"/>
-        <Label Content="Last Name" HorizontalAlignment="Left" Height="33" Margin="10,81,0,0" VerticalAlignment="Top" Width="106" FontSize="18"/>
-        <ListBox x:Name="listPeopleListBox" ItemsSource="{Binding people}" HorizontalAlignment="Left" Height="273" Margin="208,5,0,0" VerticalAlignment="Top" Width="373">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Path=Firstname}"/>
-                        <TextBlock Text=" "/>
-                        <TextBlock Text="{Binding Path=Lastname}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="10"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="10"/>
+    </Grid.RowDefinitions>
 
+    <Grid Grid.Column="1" Grid.Row="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" >
+                    <Label Content="Id: "   HorizontalAlignment="Left" />
+                    <TextBlock x:Name="idText" Text="{Binding Path=Id}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <Label Content="First Name"  Height="auto" HorizontalAlignment="Left" />
+                <TextBox x:Name="firstNameText" HorizontalAlignment="Stretch" TextAlignment="Left"   />
+                <Label Content="Last Name" HorizontalAlignment="Left" />
+                <TextBox x:Name="lastNameText" HorizontalAlignment="Stretch" TextAlignment="Left" TextWrapping="NoWrap"/>
+                <Button x:Name="addPersonBtn" Margin="0 10 0 0" Content="Add Person" Height="30" Width="100" Click="addPersonBtn_Click"/>
+                <Button x:Name="refreshListBtn" Margin="0 10 0 0" Content="Refresh List" Height="30" Width="100" Click="refreshListBtn_Click"/>
+                <Button x:Name="editBtn" Margin="0 10 0 0" Content="Edit" Height="30" Width="100" IsEnabled="False" Click="editBtn_Click"/>
+                <Button x:Name="deleteBtn" Margin="0 10 0 0" Content="Delete" Height="30" Width="100" IsEnabled="False" Click="deleteBtn_Click"/>
+                <Button x:Name="findBtn" Margin="0 10 0 0" Content="Find" Height="30" Width="100" IsEnabled="False" Click="findBtn_Click"/>
+
+            </StackPanel>
+        
+
+    </Grid>
+    <Grid Grid.Column="3" Grid.Row="1">
+            <ListBox x:Name="listPeopleListBox" ItemsSource="{Binding people}" Height="auto" Width="auto">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                        <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=Id}" Margin="0 0 10 0"/>
+                            <TextBlock Text="{Binding Path=Firstname}" Margin="0 0 10 0"/>
+                            <TextBlock Text="{Binding Path=Lastname}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </Window>

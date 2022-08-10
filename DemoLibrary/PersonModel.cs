@@ -8,6 +8,15 @@ namespace DemoLibrary
 {
     public class PersonModel
     {
+        private int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+
         private string firstname;
 
         public string Firstname

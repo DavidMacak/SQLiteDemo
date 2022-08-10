@@ -11,7 +11,9 @@ namespace DemoLibrary
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
+                // v "" jsou sql commandy
                 var output = cnn.Query<PersonModel>("select * from Person", new DynamicParameters());
+                //překonverutje to na list podle PersonModelu - názvy properties musí přěsně sedět s názvem v databázi jinak se nevyplní
                 return output.ToList();
             }
         }
@@ -21,6 +23,22 @@ namespace DemoLibrary
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Execute("insert into Person (FirstName, LastName) values (@FirstName, @LastName)", person);
+            }
+        }
+        public static void EditPerson(PersonModel selectedPerson)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                //cnn.Execute("update Person set (FirstName, LastName) values (@FirstName, @LastName) where (Id) values (@Id)", selectedPerson);
+                //error and trial - wtf how is this workin
+                cnn.Execute("UPDATE Person SET(FirstName, LastName) = (@FirstName, @LastName) WHERE Id = @Id", selectedPerson);
+            }
+        }
+        public static void DeletePerson(PersonModel selectedPerson)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("DELETE FROM Person WHERE Id = @Id", selectedPerson);
             }
         }
 
