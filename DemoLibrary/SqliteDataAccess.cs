@@ -41,6 +41,20 @@ namespace DemoLibrary
                 cnn.Execute("DELETE FROM Person WHERE Id = @Id", selectedPerson);
             }
         }
+        public static List<PersonModel> FindPeople(string firstname, string lastname)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var param = new Dictionary<string, object>()
+                {
+                    ["firstname"] = $"%{firstname}%",
+                    ["lastname"] = $"%{lastname}%"
+                };
+
+                var output = cnn.Query<PersonModel>("SELECT * FROM Person WHERE FirstName LIKE @firstname AND LastName LIKE @lastname", param);
+                return output.ToList();
+            }
+        }
 
         private static string LoadConnectionString(string id ="Default")
         {

@@ -35,7 +35,7 @@
                 <Button x:Name="refreshListBtn" Margin="0 10 0 0" Content="Refresh List" Height="30" Width="100" Click="refreshListBtn_Click"/>
                 <Button x:Name="editBtn" Margin="0 10 0 0" Content="Edit" Height="30" Width="100" IsEnabled="False" Click="editBtn_Click"/>
                 <Button x:Name="deleteBtn" Margin="0 10 0 0" Content="Delete" Height="30" Width="100" IsEnabled="False" Click="deleteBtn_Click"/>
-                <Button x:Name="findBtn" Margin="0 10 0 0" Content="Find" Height="30" Width="100" IsEnabled="False" Click="findBtn_Click"/>
+                <Button x:Name="findBtn" Margin="0 10 0 0" Content="Find" Height="30" Width="100" Click="findBtn_Click"/>
 
             </StackPanel>
         

@@ -95,7 +95,15 @@ namespace SQLiteDemo
             //pokud je aspon jeden textbox tak bude enabled - delegate
             //vysledky hledani budou vyhozeny do listboxu - sql pain
             //hledame podle jmena, prijmeni nebo kombinace oboji
+            string firstname;
+            string lastname;
 
+            firstname = firstNameText.Text;
+            lastname = lastNameText.Text;
+
+            people = SqliteDataAccess.FindPeople(firstname, lastname);
+
+            WireUpPeopleList();
 
         }
     }
