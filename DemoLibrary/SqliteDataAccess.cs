@@ -17,7 +17,6 @@ namespace DemoLibrary
                 return output.ToList();
             }
         }
-
         public static void SavePerson(PersonModel person)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -41,6 +40,16 @@ namespace DemoLibrary
                 cnn.Execute("DELETE FROM Person WHERE Id = @Id", selectedPerson);
             }
         }
+        public static void DeleteMultiplePerson(List<PersonModel> selectedPersons)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                foreach (PersonModel selPerson in selectedPersons)
+                {
+                    cnn.Execute("DELETE FROM Person WHERE Id = @Id", selPerson);
+                }
+            }
+        }
         public static List<PersonModel> FindPeople(string firstname, string lastname)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -55,7 +64,6 @@ namespace DemoLibrary
                 return output.ToList();
             }
         }
-
         private static string LoadConnectionString(string id ="Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;

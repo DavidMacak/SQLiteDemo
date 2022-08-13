@@ -5,9 +5,6 @@ using System.Windows;
 
 namespace SQLiteDemo
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         List<PersonModel> people = new List<PersonModel>();
@@ -17,7 +14,6 @@ namespace SQLiteDemo
         {
             InitializeComponent();
         }
-
         private void LoadPeopleList()
         {
             people = SqliteDataAccess.LoadPeople();
@@ -41,7 +37,6 @@ namespace SQLiteDemo
             firstNameText.Text = "";
             lastNameText.Text = "";
             editBtn.IsEnabled = false;
-            deleteBtn.IsEnabled = false;
         }
         private void SelectedPerson()
         {
@@ -51,7 +46,6 @@ namespace SQLiteDemo
             firstNameText.Text = selectedPerson.Firstname;
             lastNameText.Text = selectedPerson.Lastname;
         }
-
         private void addPersonBtn_Click(object sender, RoutedEventArgs e)
         {
             PersonModel p = new PersonModel();
@@ -82,19 +76,28 @@ namespace SQLiteDemo
             SqliteDataAccess.EditPerson(selectedPerson);
             refreshUI();
         }
-
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            SqliteDataAccess.DeletePerson(selectedPerson);
+            List<PersonModel> selectedPersons = new List<PersonModel>();
+
+            if(listPeopleListBox.SelectedItems.Count > 0)
+            {
+                foreach (PersonModel selPerson in listPeopleListBox.SelectedItems)
+                {
+                    selectedPersons.Add(selPerson);
+                }
+            }
+            else
+            {
+                var dialog = new SmallDialog("Nothing is selected!","Oopsie");
+                dialog.ShowDialog();
+                //MessageBox.Show("Nothing selected!","Oopsie", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            SqliteDataAccess.DeleteMultiplePerson(selectedPersons);
             refreshUI();
         }
-
         private void findBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
-            //pokud je aspon jeden textbox tak bude enabled - delegate
-            //vysledky hledani budou vyhozeny do listboxu - sql pain
-            //hledame podle jmena, prijmeni nebo kombinace oboji
             string firstname;
             string lastname;
 
